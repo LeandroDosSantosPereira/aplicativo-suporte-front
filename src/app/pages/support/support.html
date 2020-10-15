@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Support</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content> 
+  <div class="support-logo">
+    <img src="assets/img/appicon.svg" alt="Ionic Logo">
+  </div>
+  <ion-item>
+    <ion-label>Nome</ion-label>
+    <ion-input [(ngModel)]="user.name" placeholder="Enter Name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>E-mail</ion-label>
+    <ion-input [(ngModel)]="user.email" placeholder="Enter Age"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Senha</ion-label>
+    <ion-input [(ngModel)]="user.password" placeholder="Enter Address" type="password"></ion-input>
+  </ion-item>
+  <ion-button (click)="update()" color="primary" size="block">
+    Update
+  </ion-button>
+  
+</ion-content>

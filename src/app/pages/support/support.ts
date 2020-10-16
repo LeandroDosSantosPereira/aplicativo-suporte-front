@@ -1,3 +1,4 @@
+import { CurrentUser } from './../../auth/currentuser';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormsModule , ReactiveFormsModule } from '@angular/forms';
@@ -18,10 +19,10 @@ export class SupportPage implements OnInit {
   submitted = false;
   supportMessage: string;
 
-  id: number;
+  id: any;
   data: any;
   user: any = {name: '', email: '', password_digest: '' };
-  
+  current: CurrentUser = new CurrentUser()
 
   constructor(
     public alertCtrl: AlertController,
@@ -30,14 +31,15 @@ export class SupportPage implements OnInit {
     public activatedRoute: ActivatedRoute,
     public router: Router,
     public formsModule: FormsModule,
-    public reactiveFormsModule: ReactiveFormsModule
+    public reactiveFormsModule: ReactiveFormsModule  
 
   ) { }
 
-  ngOnInit() {   
-    // this.id = this.activatedRoute.snapshot.params["id"];   
-    this.authService.getItem(10).then(response => { 
-      // console.log(response)    
+  ngOnInit() {     
+    console.log(this.current.getUser())
+    this.id = this.current.getUser()
+
+    this.authService.getItem(this.id).then(response => {        
       this.data = response;  
       this.user ={
         name: this.data.name,
@@ -46,21 +48,11 @@ export class SupportPage implements OnInit {
       }     
     })
 
-    try {
-      const jwt = localStorage.getItem('token');
-      //************************/ Comando para instalar o decode e pegar o id npm install jwt-decode
-      console.log("Usuário decodificado: ");
-      console.log(jwt_decode(jwt));
-    } catch (ex) {
-      return null;
-    }
-
-
   }
 
   update() {       
     //Update item by taking id and updated data object
-    this.authService.updateItem(10,{user: this.user}).subscribe(response => {
+    this.authService.updateItem(this.id,{user: this.user}).subscribe(response => {
       this.router.navigate(['/login']);
     })
   }

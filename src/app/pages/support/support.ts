@@ -37,7 +37,7 @@ export class SupportPage implements OnInit {
 
   ngOnInit() {     
     console.log(this.current.getUser())
-    this.id = this.current.getUser()
+    this.id = this.current.getUser() 
 
     this.authService.getItem(this.id).then(response => {        
       this.data = response;  

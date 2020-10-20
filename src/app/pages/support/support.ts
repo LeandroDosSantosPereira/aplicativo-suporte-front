@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import jwt_decode from "jwt-decode";
+
 
 
 

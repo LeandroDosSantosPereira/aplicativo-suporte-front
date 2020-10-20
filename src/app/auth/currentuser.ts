@@ -1,6 +1,7 @@
 import jwt_decode from "jwt-decode";
- //Comando para instalar o decode e pegar o id npm install jwt-decode
 
+ //Comando para instalar o decode e pegar o id npm install jwt-decode
+ 
 export class CurrentUser{
 
    id:any

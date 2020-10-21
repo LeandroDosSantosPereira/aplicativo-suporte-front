@@ -12,7 +12,10 @@
   <div class="support-logo">
     <img src="assets/img/appicon.svg" alt="Ionic Logo">
   </div>
-  <ion-item>
+  <ion-item>    
+    <input type="file" (change)="onFileChanged($event)">
+  </ion-item>
+  <ion-item>        
     <ion-label>Nome</ion-label>
     <ion-input [(ngModel)]="user.name" placeholder="Enter Name"></ion-input>
   </ion-item>

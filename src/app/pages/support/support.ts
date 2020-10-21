@@ -21,7 +21,8 @@ export class SupportPage implements OnInit {
 
   id: any;
   data: any;
-  user: any = {name: '', email: '', password_digest: '' };
+  
+  user: any = {name: '', email: '', password_digest: '', featured_image: '' };
   current: CurrentUser = new CurrentUser()
 
   constructor(
@@ -44,15 +45,23 @@ export class SupportPage implements OnInit {
       this.user ={
         name: this.data.name,
         email: this.data.email,
-        password: this.data.password_digest
+        password: this.data.password_digest,
+        featured_image: ""
+        
       }     
     })
 
   }
 
+  onFileChanged(event) {
+     this.user.featured_image = event.target.files[0]
+    console.log(this.user.featured_image)
+  }
+
   update() {       
     //Update item by taking id and updated data object
     this.authService.updateItem(this.id,{user: this.user}).subscribe(response => {
+      console.log(this.user)
       this.router.navigate(['/login']);
     })
   }

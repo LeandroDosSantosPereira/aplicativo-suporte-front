@@ -64,11 +64,30 @@ export class AuthService {
   }
 
   // Update Method
-  updateItem(id, item): Observable<any> {    
+  // updateItem(id, item): Observable<any> {  
+      
+  //   this.httpOptions.headers =
+  //   this.httpOptions.headers.set('Authorization', this.token);
+  //   return this.http
+  //     .put<any>(this.url + '/' + id, JSON.stringify(item), this.httpOptions )
+  //     .pipe(
+  //       retry(2),
+  //       catchError(this.handleError)
+  //     )
+  // }
+
+
+  updateItem(id, item): Observable<any> {  
+    let uploadData = new FormData();
+    uploadData.append ('name', item.name); 
+    uploadData.append ('email', item.email); 
+    uploadData.append ('password', item.password); 
+    uploadData.append ('Featured_image', item.featured_image);
+    console.log(uploadData)
     this.httpOptions.headers =
     this.httpOptions.headers.set('Authorization', this.token);
     return this.http
-      .put<any>(this.url + '/' + id, JSON.stringify(item), this.httpOptions )
+      .put<any>(this.url + '/' + id, uploadData, this.httpOptions )
       .pipe(
         retry(2),
         catchError(this.handleError)

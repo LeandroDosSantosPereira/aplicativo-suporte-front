@@ -46,7 +46,7 @@ export class SupportPage implements OnInit {
         name: this.data.name,
         email: this.data.email,
         password: this.data.password_digest,
-        featured_image: ""
+        featured_image: null
         
       }     
     })

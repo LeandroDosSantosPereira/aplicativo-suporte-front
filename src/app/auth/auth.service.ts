@@ -43,8 +43,8 @@ export class AuthService {
 
   // Http Options
   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+    headers: new HttpHeaders({    
+     'Content-Type': 'application/json'     
     })
   }
 
@@ -62,32 +62,12 @@ export class AuthService {
       map(response => response.token)
     );
   }
-
-  // Update Method
-  // updateItem(id, item): Observable<any> {  
-      
-  //   this.httpOptions.headers =
-  //   this.httpOptions.headers.set('Authorization', this.token);
-  //   return this.http
-  //     .put<any>(this.url + '/' + id, JSON.stringify(item), this.httpOptions )
-  //     .pipe(
-  //       retry(2),
-  //       catchError(this.handleError)
-  //     )
-  // }
-
-
-  updateItem(id, item): Observable<any> {  
-    let uploadData = new FormData();
-    uploadData.append ('name', item.name); 
-    uploadData.append ('email', item.email); 
-    uploadData.append ('password', item.password); 
-    uploadData.append ('Featured_image', item.featured_image);
-    console.log(uploadData)
+ 
+  updateItem(id, item): Observable<any> {        
     this.httpOptions.headers =
     this.httpOptions.headers.set('Authorization', this.token);
     return this.http
-      .put<any>(this.url + '/' + id, uploadData, this.httpOptions )
+      .put<any>(this.url + '/' + id, JSON.stringify(item) , this.httpOptions )
       .pipe(
         retry(2),
         catchError(this.handleError)

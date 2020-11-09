@@ -10,10 +10,14 @@
 
 <ion-content> 
   <div class="support-logo">
-    <img src="assets/img/appicon.svg" alt="Ionic Logo">
+    <!-- <img src="assets/img/appicon.svg" alt="Ionic Logo"> -->
+    <img [src]="imageSrc"  alt="Ionic Logo">
+
+    <!-- <img [src]="imageSrc" style="max-width:300px;max-height:300px"/>  -->
+    
   </div>
   <ion-item>    
-    <input type="file" (change)="onFileChanged($event)">
+    <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
   </ion-item>
   <ion-item>        
     <ion-label>Nome</ion-label>

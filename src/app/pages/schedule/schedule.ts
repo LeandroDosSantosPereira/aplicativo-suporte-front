@@ -5,7 +5,7 @@ import { AlertController, IonList, IonRouterOutlet, LoadingController, ModalCont
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
-import { AuthService } from './../../auth/auth.service';
+import { TicketService } from '../../auth/ticket.service';
 
 
 
@@ -33,14 +33,14 @@ export class SchedulePage implements OnInit {
     public toastCtrl: ToastController,
     public user: UserData,
     public config: Config,
-    public authService: AuthService,
+    public ticketService: TicketService
 
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { 
 
 
-    this.authService.getUserList().then(response => {        
+    this.ticketService.getUserList().then(response => {        
       this.data = response; 
       console.log(this.data)      
       this.ticket ={       

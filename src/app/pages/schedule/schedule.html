@@ -6,19 +6,21 @@
     <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<!-- *ngFor="let d of data" -->
 
 <ion-content fullscreen="true">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Titulo</ion-card-title>
+  <ion-card *ngFor="let d of data">
+    <ion-chip>
+      <ion-avatar>
+        <img src="assets/img/appicon.svg">
+      </ion-avatar>
+      <ion-label>Nome {{d.user_id}}</ion-label>
+    </ion-chip>    <ion-card-header>
+      <ion-card-subtitle>Data {{d.created_at}}</ion-card-subtitle>
+      <ion-card-title>Ticket - {{d.id}}</ion-card-title>
     </ion-card-header>
-  
     <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      {{d.title}}
     </ion-card-content>
   </ion-card>
-
-  
 </ion-content>

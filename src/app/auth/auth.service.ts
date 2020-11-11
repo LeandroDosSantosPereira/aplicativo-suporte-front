@@ -89,18 +89,4 @@ export class AuthService {
   }
 
 
-  getUserList() {  
-    return new Promise(resolve => {
-      this.http.get('http://localhost:3000/api/v1/tickets' ,
-       { headers: this.headers }).subscribe(data => {
-        resolve(data);
-        return data;
-        console.log(data)
-      }, err => {
-        console.log(err);
-      });
-    }); 
-  
-    }
-
 }

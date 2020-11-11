@@ -6,21 +6,20 @@
     <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- *ngFor="let d of data" -->
 
 <ion-content fullscreen="true">
-  <ion-card *ngFor="let d of data">
+  <ion-card *ngFor="let ticket of tickets">
     <ion-chip>
       <ion-avatar>
         <img src="assets/img/appicon.svg">
       </ion-avatar>
-      <ion-label>Nome {{d.user_id}}</ion-label>
+      <ion-label>Nome {{ticket.name}}</ion-label>
     </ion-chip>    <ion-card-header>
-      <ion-card-subtitle>Data {{d.created_at}}</ion-card-subtitle>
-      <ion-card-title>Ticket - {{d.id}}</ion-card-title>
+      <ion-card-subtitle>Data {{ticket.created_at}}</ion-card-subtitle>
+      <ion-card-title>Ticket - {{ticket.id}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{d.title}}
+      {{ticket.title}}
     </ion-card-content>
   </ion-card>
 </ion-content>

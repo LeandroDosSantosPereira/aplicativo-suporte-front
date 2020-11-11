@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/auth.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
@@ -17,10 +18,12 @@ import { TicketService } from '../../auth/ticket.service';
 export class SchedulePage implements OnInit {
   // Gets a reference to the list element
   @ViewChild('scheduleList', { static: true }) scheduleList: IonList;
-  
 
-  data: any 
-  ticket: any = {id: '', title: '', created_at: ''};
+
+  data: any
+  get_tickets: any
+  users: any
+  tickets = new Array<any>()
 
 
   constructor(
@@ -33,23 +36,30 @@ export class SchedulePage implements OnInit {
     public toastCtrl: ToastController,
     public user: UserData,
     public config: Config,
-    public ticketService: TicketService
+    public ticketService: TicketService,
+    public authService: AuthService
 
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
 
 
-    this.ticketService.getUserList().then(response => {        
-      this.data = response; 
-      console.log(this.data)      
-      this.ticket ={       
-        id: this.data.id,
-        title: this.data.title,
-        date: this.data.created_at
-      }     
-    })
+    this.ticketService.getTicketList().then(response => {
+      this.data = response;     
+      for(let i=0; i < this.data.length; i++){
+
+        this.authService.getItem(this.data[i].user_id).then(response => {        
+          this.users = response; 
+          this.get_tickets ={
+            name: this.users.name,
+            id: this.data[i].id,
+            title: this.data[i].title ,
+            date:  this.data[i].created_at    
+          } 
+          this.tickets.push(this.get_tickets)
+          console.log(this.tickets)    
+        })        
+      }
+    })       
   }
- 
-  
 }

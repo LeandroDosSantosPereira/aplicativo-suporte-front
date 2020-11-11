@@ -47,7 +47,7 @@ export class TicketService{
         })
     }
 
-    getUserList() {  
+    getTicketList() {  
         return new Promise(resolve => {
           this.http.get('http://localhost:3000/api/v1/tickets' ,
            { headers: this.headers }).subscribe(data => {

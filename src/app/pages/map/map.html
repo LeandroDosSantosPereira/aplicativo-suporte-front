@@ -8,5 +8,33 @@
 </ion-header>
 
 <ion-content>
-  <div #mapCanvas class="map-canvas"></div>
+  <form (ngSubmit)="logForm()">
+    <ion-item>
+      <ion-label>Todo</ion-label>
+      <ion-input type="text" [(ngModel)]="ticket.user_id" name="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-textarea [(ngModel)]="ticket.title" name="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-textarea [(ngModel)]="ticket.ads_id" name="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Music</ion-label>
+      <ion-select value="03">
+        <ion-select-option value="01">Alice in Chains</ion-select-option>
+        <ion-select-option value="02">Green Day</ion-select-option>
+        <ion-select-option value="03">Nirvana</ion-select-option>
+        <ion-select-option value="04">Pearl Jam</ion-select-option>
+        <ion-select-option value="05">Smashing Pumpkins</ion-select-option>
+        <ion-select-option value="06">Soundgarden</ion-select-option>
+        <ion-select-option value="07">Stone Temple Pilots</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button ion-button type="submit" expand="block">Cadastrar ticket</ion-button>
+  </form>
 </ion-content>

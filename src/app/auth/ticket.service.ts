@@ -63,8 +63,13 @@ export class TicketService{
 
          //Register Method
   create(t: any) {   
-    return this.http.post(`${this.url}`, t);
+    this.httpOptions.headers =
+    this.httpOptions.headers.set('Authorization', this.token);
+    return this.http.post(`${this.url}`, t, this.httpOptions);
   }
 
     
 }
+
+
+

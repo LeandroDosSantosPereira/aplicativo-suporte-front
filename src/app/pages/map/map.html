@@ -10,16 +10,12 @@
 <ion-content>
   <form (ngSubmit)="logForm()">
     <ion-item>
-      <ion-label>User id</ion-label>
-      <ion-input type="text" [(ngModel)]="ticket.user_id" name="user_id"></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-label>Titulo</ion-label>
-      <ion-textarea [(ngModel)]="ticket.title" name="title"></ion-textarea>
+      <ion-textarea [(ngModel)]="data.title" name="title"></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label>Destinatário</ion-label>
-      <ion-textarea [(ngModel)]="ticket.ads_id" name="ads_id"></ion-textarea>
+      <ion-textarea [(ngModel)]="data.ads_id" name="ads_id"></ion-textarea>
     </ion-item>
 
     <!-- <ion-item>

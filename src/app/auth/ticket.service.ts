@@ -59,5 +59,12 @@ export class TicketService{
         }); 
       
         }
+
+
+         //Register Method
+  create(t: any) {   
+    return this.http.post(`${this.url}`, t);
+  }
+
     
 }

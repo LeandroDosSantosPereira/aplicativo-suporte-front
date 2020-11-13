@@ -10,19 +10,19 @@
 <ion-content>
   <form (ngSubmit)="logForm()">
     <ion-item>
-      <ion-label>Todo</ion-label>
-      <ion-input type="text" [(ngModel)]="ticket.user_id" name="title"></ion-input>
+      <ion-label>User id</ion-label>
+      <ion-input type="text" [(ngModel)]="ticket.user_id" name="user_id"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Description</ion-label>
-      <ion-textarea [(ngModel)]="ticket.title" name="description"></ion-textarea>
+      <ion-label>Titulo</ion-label>
+      <ion-textarea [(ngModel)]="ticket.title" name="title"></ion-textarea>
     </ion-item>
     <ion-item>
-      <ion-label>Description</ion-label>
-      <ion-textarea [(ngModel)]="ticket.ads_id" name="description"></ion-textarea>
+      <ion-label>Destinatário</ion-label>
+      <ion-textarea [(ngModel)]="ticket.ads_id" name="ads_id"></ion-textarea>
     </ion-item>
 
-    <ion-item>
+    <!-- <ion-item>
       <ion-label>Music</ion-label>
       <ion-select value="03">
         <ion-select-option value="01">Alice in Chains</ion-select-option>
@@ -33,7 +33,7 @@
         <ion-select-option value="06">Soundgarden</ion-select-option>
         <ion-select-option value="07">Stone Temple Pilots</ion-select-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
 
     <ion-button ion-button type="submit" expand="block">Cadastrar ticket</ion-button>
   </form>

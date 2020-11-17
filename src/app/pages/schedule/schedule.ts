@@ -46,18 +46,19 @@ export class SchedulePage implements OnInit {
 
     this.ticketService.getTicketList().then(response => {
       this.data = response;     
+        
       for(let i=0; i < this.data.length; i++){
-
-        this.authService.getItem(this.data[i].user_id).then(response => {        
+        this.authService.getItem(this.data[i].user_id).then(response => {                   
           this.users = response; 
+          console.log(this.users.url) 
           this.get_tickets ={
+            photo: "http://localhost:3000/" + this.users.photo.url,
             name: this.users.name,
             id: this.data[i].id,
             title: this.data[i].title ,
             date:  this.data[i].created_at    
           } 
-          this.tickets.push(this.get_tickets)
-          console.log(this.tickets)    
+          this.tickets.push(this.get_tickets)          
         })        
       }
     })       

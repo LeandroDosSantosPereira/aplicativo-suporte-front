@@ -11,11 +11,11 @@
   <ion-card *ngFor="let ticket of tickets">
     <ion-chip>
       <ion-avatar>
-        <img src="assets/img/appicon.svg">
+        <img [src]="ticket.photo">
       </ion-avatar>
-      <ion-label>Nome {{ticket.name}}</ion-label>
+      <ion-label>{{ticket.name}}</ion-label>
     </ion-chip>    <ion-card-header>
-      <ion-card-subtitle>Data {{ticket.created_at}}</ion-card-subtitle>
+      <ion-card-subtitle>{{ticket.date}}</ion-card-subtitle>
       <ion-card-title>Ticket - {{ticket.id}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>

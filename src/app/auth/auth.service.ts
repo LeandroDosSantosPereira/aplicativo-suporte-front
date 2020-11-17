@@ -88,5 +88,19 @@ export class AuthService {
 
   }
 
+  getAll() {  
+    return new Promise(resolve => {
+      this.http.get(this.url  ,
+       { headers: this.headers }).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    }); 
+  
+    }
+
+    //Fim
+
 
 }

@@ -6,21 +6,21 @@ import { catchError, map, retry } from 'rxjs/operators';
 import { User } from '../models/User';
 
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root'
+})
 
 
-export class TicketService{
+export class TicketService {
 
-    private url = 'http://localhost:3000/api/v1/tickets';
+  private url = 'http://localhost:3000/api/v1/tickets';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    // Do this on service. But for this demo lets do here
-    token:any = localStorage.getItem('token');
-    headers:any = new HttpHeaders({
+  // Do this on service. But for this demo lets do here
+  token: any = localStorage.getItem('token');
+  headers: any = new HttpHeaders({
     Authorization: 'Bearer ' + this.token
-   });  
+  });
 
   // Handle API errors
   handleError(error: HttpErrorResponse) {
@@ -40,35 +40,35 @@ export class TicketService{
   };
 
 
-    // Http Options
-    httpOptions = {
-        headers: new HttpHeaders({    
-        'Content-Type': 'application/json'     
-        })
-    }
+  // Http Options
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json' 
+    })
+  }
 
-    getTicketList() {  
-        return new Promise(resolve => {
-          this.http.get('http://localhost:3000/api/v1/tickets' ,
-           { headers: this.headers }).subscribe(data => {
-            resolve(data);
-            // return data;
-          }, err => {
-            console.log(err);
-          });
-        }); 
-      
-        }
+  getTicketList() {
+    return new Promise(resolve => {
+      this.http.get('http://localhost:3000/api/v1/tickets',
+        { headers: this.headers }).subscribe(data => {
+          resolve(data);
+          // return data;
+        }, err => {
+          console.log(err);
+        });
+    });
+
+  }
 
 
-         //Register Method
-  create(t: any) {   
+  //Create  Method
+  create(t: any) {
     this.httpOptions.headers =
-    this.httpOptions.headers.set('Authorization', this.token);
+      this.httpOptions.headers.set('Authorization', this.token);
     return this.http.post(`${this.url}`, t, this.httpOptions);
   }
 
-    
+
 }
 
 

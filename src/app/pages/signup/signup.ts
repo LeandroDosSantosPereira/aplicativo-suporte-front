@@ -16,7 +16,7 @@ import { AlertController, ToastController, LoadingController } from '@ionic/angu
   styleUrls: ['./signup.scss'],
 })
 export class SignupPage {
-  signup: any = {name: '', username: '', password_digest: '' };
+  signup: any = {name: '', username: '', password_digest: '', admin: 'false' };
   submitted = false;
 
   constructor(
@@ -30,11 +30,15 @@ export class SignupPage {
 
   async onSignup(form: NgForm) {  
     this.submitted = true;
-    this.signup = {user:{ name: form.value.name, email: form.value.username, password: form.value.password }};    
+    this.signup = {user:{ name: form.value.name,
+     email: form.value.username,
+     password: form.value.password,
+     admin: form.value.admin 
+    }};    
     const loading = await this.loadingCtrl.create({ message: 'Registering...' });
     await loading.present();
     this.authService.register(this.signup).subscribe(
-      // If success
+     // If success
       async () => {
         const toast = await this.toastCtrl.create({ message: 'User Created', duration: 2000, color: 'dark' });
         await toast.present();
@@ -48,8 +52,7 @@ export class SignupPage {
         loading.dismiss();
         await alert.present();
       }
-    );
-
+    );  
   
   }
 }

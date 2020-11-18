@@ -15,7 +15,7 @@ export class MapPage {
   ticket: any
   current: CurrentUser = new CurrentUser()
   id: number
- public  usersList: any
+ public  usersList: any 
 
   constructor(
     public ticketService: TicketService,

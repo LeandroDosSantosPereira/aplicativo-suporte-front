@@ -15,7 +15,7 @@ export class MapPage {
   ticket: any
   current: CurrentUser = new CurrentUser()
   id: number
- public  usersList: any 
+  public  usersList: any 
 
   constructor(
     public ticketService: TicketService,
@@ -24,8 +24,9 @@ export class MapPage {
 
 
   ngOnInit() {
-
+    // Pega o id do usuário logado
     this.id = this.current.getUser()
+    // Chama o método getAll da classe auService e salva na userList a lista de usuários
     this.authService.getAll().then(d => {
     this.usersList = d
     console.log(this.usersList)
@@ -33,7 +34,7 @@ export class MapPage {
   }
 
   logForm() {    
-
+    // Cria um objeto ticket
     this.ticket = {
       ticket: {
         user_id: this.id,
@@ -41,6 +42,7 @@ export class MapPage {
         ads_id: this.data.ads_id
       }
     };
+    // Envia o objeto ticket para o método create da classe ticketService
     this.ticketService.create(this.ticket).subscribe(
       async () => {
         alert("Ticket salvo")

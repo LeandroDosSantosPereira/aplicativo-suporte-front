@@ -14,14 +14,14 @@ export class AuthService {
   private url = 'http://localhost:3000/api/v1/users';
 
   constructor(private http: HttpClient) { }
-  
-  users:any
-   
+
+  users: any
+
   // Do this on service. But for this demo lets do here
-    token:any = localStorage.getItem('token');
-    headers:any = new HttpHeaders({
+  token: any = localStorage.getItem('token');
+  headers: any = new HttpHeaders({
     Authorization: 'Bearer ' + this.token
-   });  
+  });
 
   // Handle API errors
   handleError(error: HttpErrorResponse) {
@@ -43,64 +43,67 @@ export class AuthService {
 
   // Http Options
   httpOptions = {
-    headers: new HttpHeaders({    
-     'Content-Type': 'application/json'     
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
     })
   }
 
 
-  //Register Method
-  register(user: User) {    
+  //Método de cadastrar o usuário
+  register(user: User) {
     // return this.http.post(`${this.url}/create`, user);
     return this.http.post(`${this.url}`, user);
   }
 
-  //Login Method
+  //Método de login
   login(credentials: any): Observable<string> {
     console.log(credentials)
     return this.http.post<{ token: string }>(`${this.url}/login`, credentials).pipe(
       map(response => response.token)
     );
   }
- 
-  updateItem(id, item): Observable<any> {        
+
+  // Método de atualizar usuário
+  updateItem(id, item): Observable<any> {
     this.httpOptions.headers =
-    this.httpOptions.headers.set('Authorization', this.token);
+      this.httpOptions.headers.set('Authorization', this.token);
     return this.http
-      .put<any>(this.url + '/' + id, JSON.stringify(item) , this.httpOptions )
+      .put<any>(this.url + '/' + id, JSON.stringify(item), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  getItem(id) {  
-  return new Promise(resolve => {
-    this.http.get(this.url + '/' + id ,
-     { headers: this.headers }).subscribe(data => {
-      resolve(data);
-      this.users = data;
-      // console.log(data)
-    }, err => {
-      console.log(err);
+  // Busca um usuário pelo id
+  getItem(id) {
+    return new Promise(resolve => {
+      this.http.get(this.url + '/' + id,
+        { headers: this.headers }).subscribe(data => {
+          resolve(data);
+          this.users = data;
+          // console.log(data)
+        }, err => {
+          console.log(err);
+        });
     });
-  }); 
 
   }
 
-  getAll() {  
+  // Busca todos os usuário
+  getAll() {
     return new Promise(resolve => {
-      this.http.get(this.url  ,
-       { headers: this.headers }).subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      });
-    }); 
-  
-    }
+      this.http.get(this.url,
+        { headers: this.headers }).subscribe(data => {
+          resolve(data);
+        }, err => {
+          console.log(err);
+        });
+    });
 
-    //Fim
+  }
+
+  //Fim
 
 
 }

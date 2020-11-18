@@ -43,10 +43,12 @@ export class SupportPage implements OnInit {
 
   ) { }
 
-  ngOnInit() {     
+  ngOnInit() {
 
+    //Pega usuário logado
     this.id = this.current.getUser() 
 
+    // Busca usuário logado na classe authService pelo id e trás os dados para o objeto ticket
     this.authService.getItem(this.id).then(response => {        
       this.data = response; 
       this.imageSrc = "http://localhost:3000/" + this.data.photo.url  
@@ -60,8 +62,8 @@ export class SupportPage implements OnInit {
     })
     
   }
-
-
+  
+  //Método que pega imagem do input file e convete em base 64 e guarda na variável imageSrc 
   handleInputChange(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = /image-*/;
@@ -84,7 +86,7 @@ export class SupportPage implements OnInit {
 
   update() {  
     console.log(this.user)    
-    //Update item by taking id and updated data object
+    //Envia o id e o usuário para o método updateItem para a classe authService
     this.authService.updateItem(this.id, this.user ).subscribe(response => {     
       this.router.navigate(['/login']);
     })

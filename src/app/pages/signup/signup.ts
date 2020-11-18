@@ -30,6 +30,7 @@ export class SignupPage {
 
   async onSignup(form: NgForm) {  
     // this.submitted = true;
+    //Objeto signup
     this.signup = {user:{ name: form.value.name,
      email: form.value.username,
      password: form.value.password,
@@ -37,8 +38,9 @@ export class SignupPage {
     }};    
     const loading = await this.loadingCtrl.create({ message: 'Registering...' });
     await loading.present();
+    //Envia objeto signup para o metodo register na classe authservice para salvar o usuário criado
     this.authService.register(this.signup).subscribe(
-     // If success
+     // Se sucesso redireciona para página home
       async () => {
         const toast = await this.toastCtrl.create({ message: 'User Created', duration: 2000, color: 'dark' });
         await toast.present();
@@ -46,7 +48,7 @@ export class SignupPage {
         form.reset();
         this.router.navigateByUrl('/app/tabs/schedule');
       },
-      // If there is an error
+      // Caso não tiver sucesso exibe msg de erro
       async () => {
         const alert = await this.alertCtrl.create({ message: 'There is an error', buttons: ['OK'] });
         loading.dismiss();

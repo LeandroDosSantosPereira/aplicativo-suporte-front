@@ -5,7 +5,8 @@ import jwt_decode from "jwt-decode";
 export class CurrentUser{
 
    id:any
-
+  
+  //  Método para pegar o usuário logado
    getUser(){     
       try {
         const jwt = localStorage.getItem('token');     

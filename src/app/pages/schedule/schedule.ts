@@ -7,6 +7,7 @@ import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 import { TicketService } from '../../auth/ticket.service';
+import { CurrentUser } from './../../auth/currentuser';
 
 
 
@@ -24,7 +25,8 @@ export class SchedulePage implements OnInit {
   get_tickets: any
   users: any
   tickets = new Array<any>()
-
+  current: CurrentUser = new CurrentUser()
+  id: number;
 
   constructor(
     public alertCtrl: AlertController,
@@ -42,25 +44,31 @@ export class SchedulePage implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
+    // Pega o usuário logado
+    this.id = this.current.getUser()
+    // Pega a lista de tickets da classe ticketService
     this.ticketService.getTicketList().then(response => {
-      this.data = response;     
-        
-      for(let i=0; i < this.data.length; i++){
-        this.authService.getItem(this.data[i].user_id).then(response => {                   
-          this.users = response; 
-          console.log(this.users.url) 
-          this.get_tickets ={
-            photo: "http://localhost:3000/" + this.users.photo.url,
-            name: this.users.name,
-            id: this.data[i].id,
-            title: this.data[i].title ,
-            date:  this.data[i].created_at    
-          } 
-          this.tickets.push(this.get_tickets)          
-        })        
+      this.data = response;
+
+      for (let i = 0; i < this.data.length; i++) {
+        // Laço do tamanho da lista de tickets chama o metodo getItem da classe authService buscando o usuário pelo id 
+        this.authService.getItem(this.data[i].user_id).then(response => {
+          this.users = response;
+          // Compara se o usuário logado está no ticket como remetente ou destinatário do ticket
+          if (this.id == Object.values(this.data[i])[5] || this.id == Object.values(this.data[i])[2]) {           
+              // Seta valores no objeto ticket
+              this.get_tickets = {
+              photo: "http://localhost:3000/" + this.users.photo.url,
+              name: this.users.name,
+              id: this.data[i].id,
+              title: this.data[i].title,
+              date: this.data[i].created_at
+            }
+            // Adiciona o objeto ticket no Array
+            this.tickets.push(this.get_tickets)
+          }
+        })
       }
-    })       
+    })
   }
 }

@@ -32,12 +32,13 @@ export class LoginPage {
     this.login = { email: form.value.username, password: form.value.password };
     console.log({user: this.login})
     
-     this.submitted = true;
+    this.submitted = true;
 
     const loading = await this.loadingCtrl.create({ message: 'Carregando ...' });
-    await loading.present();    
+    await loading.present();   
+    // Envia o usuário para o método login da classe authService 
     this.authService.login({user: this.login}).subscribe(   
-        
+      //  Recebe o Token e guarda no localStorage 
       async token => {
         console.log(token)
         localStorage.setItem('token',token);

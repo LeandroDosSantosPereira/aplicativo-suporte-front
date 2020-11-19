@@ -27,6 +27,8 @@ export class SchedulePage implements OnInit {
   tickets = new Array<any>()
   current: CurrentUser = new CurrentUser()
   id: number;
+  nameUser:any = {name:''}
+
 
   constructor(
     public alertCtrl: AlertController,
@@ -41,11 +43,18 @@ export class SchedulePage implements OnInit {
     public ticketService: TicketService,
     public authService: AuthService
 
-  ) { }
+  ) {  }
 
   ngOnInit() {
     // Pega o usuário logado
     this.id = this.current.getUser()
+
+    //Seta o nome do Usuário no cabeçalho página
+    this.authService.getItem(this.id).then(r=> {
+      this.nameUser = r;  
+     console.log(this.nameUser.name)  
+   })
+
     // Pega a lista de tickets da classe ticketService
     this.ticketService.getTicketList().then(response => {
       this.data = response;

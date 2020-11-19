@@ -45,7 +45,7 @@ export class SchedulePage implements OnInit {
 
   ) {  }
 
-  ngOnInit() {
+  ngOnInit() {   
     // Pega o usuário logado
     this.id = this.current.getUser()
 
@@ -80,4 +80,10 @@ export class SchedulePage implements OnInit {
       }
     })
   }
+
+  getTicketId(id){
+    this.ticketService.getItemTicket(id)
+  }
+
+
 }

@@ -13,6 +13,7 @@ import { User } from '../models/User';
 export class TicketService {
 
   private url = 'http://localhost:3000/api/v1/tickets';
+  tickets: any
 
   constructor(private http: HttpClient) { }
 
@@ -68,6 +69,22 @@ export class TicketService {
       this.httpOptions.headers.set('Authorization', this.token);
     return this.http.post(`${this.url}`, t, this.httpOptions);
   }
+
+  // Busca um ticket pelo id
+  getItemTicket(id) {
+    return new Promise(resolve => {
+      this.http.get(this.url + '/' + id,
+        { headers: this.headers }).subscribe(data => {
+          resolve(data);
+          this.tickets = data;
+          console.log(data)
+        }, err => {
+          console.log(err);
+        });
+    });
+
+  }
+
 
 
 }

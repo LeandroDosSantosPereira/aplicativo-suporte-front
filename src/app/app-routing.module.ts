@@ -32,6 +32,10 @@ const routes: Routes = [
     path: 'tutorial',
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule),
     canLoad: [CheckTutorial]
+  },
+  {
+    path: 'ticket-detail/:id',
+    loadChildren: () => import('./pages/ticket-detail/ticket-detail.module').then( m => m.TicketDetailPageModule)
   }
 ];
 

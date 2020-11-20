@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-title>{{nameUser.name}}</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-card>
+    <ion-chip>
+      <ion-avatar>
+        <!-- <img [src]="ticket.photo"> -->
+      </ion-avatar>
+      <!-- <ion-label>{{ticket.name}}</ion-label> -->
+    </ion-chip>    <ion-card-header>
+      <!-- <ion-card-subtitle>{{ticket.date}}</ion-card-subtitle> -->
+      <ion-card-title>Ticket - {{ticket.id}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ticket.title}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

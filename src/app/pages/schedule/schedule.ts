@@ -81,8 +81,9 @@ export class SchedulePage implements OnInit {
     })
   }
 
+  // Função que recebe o id do objeto selecionado e manda para a página ticket-detail através da rota
   getTicketId(id){
-    this.ticketService.getItemTicket(id)
+    this.router.navigate(['/ticket-detail',id])
   }
 
 

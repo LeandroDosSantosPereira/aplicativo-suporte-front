@@ -77,7 +77,6 @@ export class TicketService {
         { headers: this.headers }).subscribe(data => {
           resolve(data);
           this.tickets = data;
-          console.log(data)
         }, err => {
           console.log(err);
         });

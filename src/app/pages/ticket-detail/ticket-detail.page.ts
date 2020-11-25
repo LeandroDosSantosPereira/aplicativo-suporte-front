@@ -30,7 +30,7 @@ export class TicketDetailPage implements OnInit {
     // Chama a função da classe ticketService que retorna o usuário pelo id 
     this.ticketService.getItemTicket(this.ticketId).then(response => {
       this.ticket = response
-
+      console.log(this.ticket)
       this.authService.getItem(this.ticket.user_id).then(response => {
         this.user = response;        
         //Seta valores no objeto ticket

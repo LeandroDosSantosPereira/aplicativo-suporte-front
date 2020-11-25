@@ -8,6 +8,9 @@
 </ion-header>
 <ion-content>
   <form (ngSubmit)="logForm()">
+    <ion-item>    
+      <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
+    </ion-item>
     <ion-item>
       <ion-label>Titulo</ion-label>
       <ion-textarea [(ngModel)]="data.title" name="title"></ion-textarea>

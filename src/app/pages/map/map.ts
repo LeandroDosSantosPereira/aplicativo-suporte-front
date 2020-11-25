@@ -15,6 +15,8 @@ export class MapPage {
   ticket: any
   current: CurrentUser = new CurrentUser()
   id: number
+  imageSrc:string = ''
+  img:string = '' 
   public  usersList: any 
 
   constructor(
@@ -33,13 +35,35 @@ export class MapPage {
     });
   }
 
+  //Método que pega imagem do input file e convete em base 64 e guarda na variável imageSrc 
+  handleInputChange(e) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+    this.img =  this.imageSrc  ;
+    console.log(this.imageSrc)
+  }
+
+
+
   logForm() {    
     // Cria um objeto ticket
     this.ticket = {
       ticket: {
         user_id: this.id,
         title: this.data.title,
-        ads_id: this.data.ads_id
+        ads_id: this.data.ads_id,
+        image: this.img
       }
     };
     // Envia o objeto ticket para o método create da classe ticketService

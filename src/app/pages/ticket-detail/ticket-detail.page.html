@@ -25,29 +25,29 @@
       <ion-card-title>{{ticketCards.title}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
+      {{ticketCards.text}}
     </ion-card-content>
   
     <ion-footer>
       <ion-row>
         <ion-col center text-center>
           <button>
-            <ion-icon name="thumbs-up"></ion-icon>
+            <ion-icon class="icon" name="thumbs-up"></ion-icon>
             <div>1.5k Likes</div>
           </button>
         </ion-col>
         <ion-col center text-center>
           <button>
-            <ion-icon name="text"></ion-icon>
-            <div>4 Comments</div>
+            <ion-icon class="icon" name="thumbs-down"></ion-icon>
+            <div>1.5k Unlikes</div>
           </button>
         </ion-col>
         <ion-col center text-center>
           <button>
-            <ion-icon name="time"></ion-icon>
-            <div>11h ago</div>
+            <ion-icon class="icon" name="chatbubbles"></ion-icon>
+            <div>4 Comments</div>
           </button>
-        </ion-col>
+        </ion-col>       
       </ion-row>
     </ion-footer>
   </ion-card>

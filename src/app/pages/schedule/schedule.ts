@@ -8,6 +8,7 @@ import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 import { TicketService } from '../../auth/ticket.service';
 import { CurrentUser } from './../../auth/currentuser';
+import { FormatDate } from '../../auth/formatdate';
 
 
 
@@ -28,6 +29,8 @@ export class SchedulePage implements OnInit {
   current: CurrentUser = new CurrentUser()
   id: number;
   nameUser:any = {name:''}
+  formatDate: FormatDate =  new FormatDate()
+
 
 
   constructor(
@@ -71,7 +74,7 @@ export class SchedulePage implements OnInit {
               name: this.users.name,
               id: this.data[i].id,
               title: this.data[i].title,
-              date: this.data[i].created_at
+              date: this.formatDate.format(this.data[i].created_at) 
             }
             // Adiciona o objeto ticket no Array
             this.tickets.push(this.get_tickets)

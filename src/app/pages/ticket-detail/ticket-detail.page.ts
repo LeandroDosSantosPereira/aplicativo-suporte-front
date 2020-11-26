@@ -1,3 +1,4 @@
+import { FormatDate } from './../../auth/formatdate';
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,8 @@ export class TicketDetailPage implements OnInit {
   ticketId: number
   ticket: any 
   user: any
-  ticketCards: any = { id: '', title: '', name: '', created_at: '', photo: '', image: '' }
+  ticketCards: any = { id: '', title: '', name: '', created_at: '', photo: '', image: '', text: '' }
+  formatDate: FormatDate =  new FormatDate()
 
   constructor(
 
@@ -32,14 +34,16 @@ export class TicketDetailPage implements OnInit {
       this.ticket = response
       console.log(this.ticket)
       this.authService.getItem(this.ticket.user_id).then(response => {
-        this.user = response;        
+        this.user = response; 
+              
         //Seta valores no objeto ticket
         this.ticketCards = {
           photo: "http://localhost:3000/" + this.user.photo.url,
           name: this.user.name,
           id: this.ticket.id,
           title: this.ticket.title,
-          date: this.ticket.created_at,
+          text:this.ticket.text,
+          date:  this.formatDate.format(this.ticket.created_at),
           image: "http://localhost:3000/" + Object.values(this.ticket.image)[0]
           // this.ticket.image
         }
@@ -52,6 +56,4 @@ export class TicketDetailPage implements OnInit {
 
 }
 
-// Função formatar hora
-// let data = new Date(x);
-// let dataFormatada = ((data.getDate() )) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear() +"/ "+ data.getHours() +":" +data.getMinutes() ; 
+

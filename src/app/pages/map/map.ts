@@ -11,7 +11,7 @@ import { TicketService } from '../../auth/ticket.service';
 })
 export class MapPage {
 
-  data = { user_id: '', title: '', ads_id: '' }
+  data = { user_id: '', title: '', ads_id: '', text:'' }
   ticket: any
   current: CurrentUser = new CurrentUser()
   id: number
@@ -63,7 +63,8 @@ export class MapPage {
         user_id: this.id,
         title: this.data.title,
         ads_id: this.data.ads_id,
-        image: this.img
+        text: this.data.text,
+        image: this.img       
       }
     };
     // Envia o objeto ticket para o método create da classe ticketService

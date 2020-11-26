@@ -12,8 +12,8 @@
       <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
     </ion-item>
     <ion-item>
-      <ion-label>Titulo</ion-label>
-      <ion-textarea [(ngModel)]="data.title" name="title"></ion-textarea>
+      <ion-label position="floating">Titulo</ion-label>
+      <ion-input [(ngModel)]="data.title" name="title"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Destinatário</ion-label>
@@ -23,6 +23,11 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
+    <!-- Textarea in an item with a floating label -->
+  <ion-item>
+    <ion-label position="floating">Description</ion-label>
+    <ion-textarea [(ngModel)]="data.text" name="text"></ion-textarea>
+  </ion-item>
     <ion-button ion-button type="submit" expand="block">Cadastrar ticket</ion-button>
   </form>
 </ion-content>

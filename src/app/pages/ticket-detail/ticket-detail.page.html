@@ -9,17 +9,48 @@
 
 <ion-content fullscreen="true">
   <ion-card>
-    <ion-chip>
-      <ion-avatar>
+    <ion-item>
+      <ion-avatar slot="start">
         <img [src]="ticketCards.photo">
       </ion-avatar>
-      <ion-label>{{ticketCards.name}}</ion-label>
-    </ion-chip>    <ion-card-header>
-      <ion-card-subtitle>{{ticketCards.date}}</ion-card-subtitle>
-      <ion-card-title>Ticket - {{ticketCards.id}}</ion-card-title>
+      <ion-label>
+        <h3>{{ticketCards.name}}</h3>
+        <p>{{ticketCards.date}}</p>
+      </ion-label>
+    </ion-item>
+  
+    <img [src]="ticketCards.image" alt="ion">
+    <ion-card-header>
+      <p>TICKET ID - {{ticketCards.id}}</p>
+      <ion-card-title>{{ticketCards.title}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      {{ticketCards.title}}
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
     </ion-card-content>
+  
+    <ion-footer>
+      <ion-row>
+        <ion-col center text-center>
+          <button>
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>1.5k Likes</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <button>
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <button>
+            <ion-icon name="time"></ion-icon>
+            <div>11h ago</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-footer>
   </ion-card>
+
+
 </ion-content>

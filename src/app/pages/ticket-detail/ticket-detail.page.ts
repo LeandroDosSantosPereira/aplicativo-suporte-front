@@ -14,7 +14,7 @@ export class TicketDetailPage implements OnInit {
   ticketId: number
   ticket: any 
   user: any
-  ticketCards: any = { id: '', title: '', name: '', created_at: '', photo: '' }
+  ticketCards: any = { id: '', title: '', name: '', created_at: '', photo: '', image: '' }
 
   constructor(
 
@@ -39,7 +39,9 @@ export class TicketDetailPage implements OnInit {
           name: this.user.name,
           id: this.ticket.id,
           title: this.ticket.title,
-          date: this.ticket.created_at
+          date: this.ticket.created_at,
+          image: "http://localhost:3000/" + Object.values(this.ticket.image)[0]
+          // this.ticket.image
         }
         console.log(this.ticketCards)
       })
@@ -50,4 +52,6 @@ export class TicketDetailPage implements OnInit {
 
 }
 
-
+// Função formatar hora
+// let data = new Date(x);
+// let dataFormatada = ((data.getDate() )) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear() +"/ "+ data.getHours() +":" +data.getMinutes() ; 

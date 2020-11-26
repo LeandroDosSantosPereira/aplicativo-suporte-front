@@ -3,6 +3,13 @@ button {
 }
 
 .icon{
-    color: #3d80ff;
+    color:#919191;
     font-size: 20px;
 }
+
+button:focus {    
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+} 
+  

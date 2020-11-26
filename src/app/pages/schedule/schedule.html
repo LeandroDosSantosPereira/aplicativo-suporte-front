@@ -8,18 +8,21 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-card *ngFor="let ticket of tickets" (click)="getTicketId(ticket.id)" >
-    <ion-chip>
-      <ion-avatar>
+
+  <ion-card *ngFor="let ticket of tickets" (click)="getTicketId(ticket.id)">
+    <ion-item>
+      <ion-avatar slot="start">
         <img [src]="ticket.photo">
       </ion-avatar>
-      <ion-label>{{ticket.name}}</ion-label>
-    </ion-chip>    <ion-card-header>
-      <ion-card-subtitle>{{ticket.date}}</ion-card-subtitle>
-      <ion-card-title>Ticket - {{ticket.id}}</ion-card-title>
+      <ion-label>
+        <h3>{{ticket.name}}</h3>
+        <p>{{ticket.date}}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-header>
+      <p>TICKET ID - {{ticket.id}}</p>
+      <ion-card-title> {{ticket.title}}</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      {{ticket.title}}
-    </ion-card-content>
   </ion-card>
 </ion-content>

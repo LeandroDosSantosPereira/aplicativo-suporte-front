@@ -3,6 +3,7 @@ import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../../auth/ticket.service';
+import { CommentService } from '../../auth/comment.service';
 
 
 @Component({
@@ -16,13 +17,16 @@ export class TicketDetailPage implements OnInit {
   ticket: any 
   user: any
   ticketCards: any = { id: '', title: '', name: '', created_at: '', photo: '', image: '', text: '' }
+  data: any = {text:'', ticket_id:''}
+  comment:any
   formatDate: FormatDate =  new FormatDate()
 
   constructor(
 
     public ticketService: TicketService,
     private route: ActivatedRoute,
-    public authService: AuthService
+    public authService: AuthService,
+    public commentService: CommentService
 
   ) { }
 
@@ -52,6 +56,25 @@ export class TicketDetailPage implements OnInit {
 
     })
 
+  }
+
+  createComment(){  
+    // Cria um objeto Comment
+    this.comment = {
+      comment: {
+        ticket_id: this.ticket.id,      
+        text: this.data.text             
+      }
+    };
+     // Envia o objeto ticket para o método create da classe ticketService
+     this.commentService.create(this.comment).subscribe(
+      async () => {
+        alert("Comentário salvo!!")
+      },
+    );
+
+    this.data = {text:'', ticket_id:''}
+    //fINAL
   }
 
 }

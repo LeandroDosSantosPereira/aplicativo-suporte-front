@@ -53,8 +53,8 @@
   </ion-card>
 
   <ion-item>
-    <ion-input ></ion-input>
-    <button>
+    <ion-input  [(ngModel)]="data.text" name="text" ></ion-input>
+    <button  (click)="createComment()">
       <ion-icon class="icon" name="send"></ion-icon>
     </button>
   </ion-item>

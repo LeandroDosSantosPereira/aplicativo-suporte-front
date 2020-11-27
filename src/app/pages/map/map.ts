@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { CurrentUser } from '../../auth/currentuser';
 import { TicketService } from '../../auth/ticket.service';
@@ -21,7 +22,8 @@ export class MapPage {
 
   constructor(
     public ticketService: TicketService,
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
   ) { }
 
 
@@ -70,9 +72,11 @@ export class MapPage {
     // Envia o objeto ticket para o método create da classe ticketService
     this.ticketService.create(this.ticket).subscribe(
       async () => {
-        alert("Ticket salvo")
+        this.router.navigateByUrl('/app/tabs/schedule');
+        
       },
     );
+   
     //fINAL
   }
 }

@@ -48,14 +48,14 @@ export class SchedulePage implements OnInit {
 
   ) {  }
 
-  ngOnInit() {   
+  ngOnInit() {    
+    console.log("hkjhjklhlkjlkj")
     // Pega o usuário logado
     this.id = this.current.getUser()
 
     //Seta o nome do Usuário no cabeçalho página
     this.authService.getItem(this.id).then(r=> {
-      this.nameUser = r;  
-     console.log(this.nameUser.name)  
+      this.nameUser = r;         
    })
 
     // Pega a lista de tickets da classe ticketService
@@ -81,9 +81,10 @@ export class SchedulePage implements OnInit {
           }
         })
       }
-    })
+    })    
   }
-
+  
+  
   // Função que recebe o id do objeto selecionado e manda para a página ticket-detail através da rota
   getTicketId(id){
     this.router.navigate(['/ticket-detail',id])

@@ -9,7 +9,7 @@
 <ion-content>
   <form (ngSubmit)="logForm()">
     <ion-item>    
-      <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
+      <input [(ngModel)]='cleanFile' name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
     </ion-item>
     <ion-item>
       <ion-label position="floating">Titulo</ion-label>

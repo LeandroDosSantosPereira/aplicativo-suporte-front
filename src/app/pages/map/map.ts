@@ -18,6 +18,7 @@ export class MapPage {
   id: number
   imageSrc:string = ''
   img:string = '' 
+  cleanFile:string = ""
   public  usersList: any 
 
   constructor(
@@ -52,8 +53,7 @@ export class MapPage {
   _handleReaderLoaded(e) {
     let reader = e.target;
     this.imageSrc = reader.result;
-    this.img =  this.imageSrc  ;
-    console.log(this.imageSrc)
+    this.img =  this.imageSrc  ;        
   }
 
 
@@ -72,6 +72,8 @@ export class MapPage {
     // Envia o objeto ticket para o método create da classe ticketService
     this.ticketService.create(this.ticket).subscribe(
       async () => {
+        this.data =  { user_id: '', title: '', ads_id: '', text:'' }
+        this.cleanFile = ''
         this.router.navigateByUrl('/app/tabs/schedule');
         
       },

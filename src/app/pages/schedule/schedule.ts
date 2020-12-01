@@ -49,39 +49,47 @@ export class SchedulePage implements OnInit {
   ) {  }
 
   ngOnInit() {    
-    console.log("hkjhjklhlkjlkj")
-    // Pega o usuário logado
-    this.id = this.current.getUser()
+   
+  }
 
-    //Seta o nome do Usuário no cabeçalho página
-    this.authService.getItem(this.id).then(r=> {
-      this.nameUser = r;         
-   })
+  // Função Assincrona para esperar o a requisição http da api 
+  async ionViewWillEnter(){
+    // Instância novamente  para limpar o array 
+    this.tickets = new Array<any>()
+     // Pega o usuário logado
+     this.id = this.current.getUser()
 
-    // Pega a lista de tickets da classe ticketService
-    this.ticketService.getTicketList().then(response => {
-      this.data = response;
+     //Seta o nome do Usuário no cabeçalho página
+     this.authService.getItem(this.id).then(r=> {
+       this.nameUser = r;         
+    })
+ 
+     // Pega a lista de tickets da classe ticketService
+     this.ticketService.getTicketList().then(response => {
+       this.data = response;
+ 
+       for (let i = 0; i < this.data.length; i++) {
+         // Laço do tamanho da lista de tickets chama o metodo getItem da classe authService buscando o usuário pelo id 
+         this.authService.getItem(this.data[i].user_id).then(response => {
+           this.users = response;
+           // Compara se o usuário logado está no ticket como remetente ou destinatário do ticket
+           if (this.id == Object.values(this.data[i])[5] || this.id == Object.values(this.data[i])[2]) {           
+               // Seta valores no objeto ticket
+               this.get_tickets = {
+               photo: "http://localhost:3000/" + this.users.photo.url,
+               name: this.users.name,
+               id: this.data[i].id,
+               title: this.data[i].title,
+               date: this.formatDate.format(this.data[i].created_at) 
+             }
+             // Adiciona o objeto ticket no Array
+             this.tickets.push(this.get_tickets)
+           }
+         })
+       }
+     })    
 
-      for (let i = 0; i < this.data.length; i++) {
-        // Laço do tamanho da lista de tickets chama o metodo getItem da classe authService buscando o usuário pelo id 
-        this.authService.getItem(this.data[i].user_id).then(response => {
-          this.users = response;
-          // Compara se o usuário logado está no ticket como remetente ou destinatário do ticket
-          if (this.id == Object.values(this.data[i])[5] || this.id == Object.values(this.data[i])[2]) {           
-              // Seta valores no objeto ticket
-              this.get_tickets = {
-              photo: "http://localhost:3000/" + this.users.photo.url,
-              name: this.users.name,
-              id: this.data[i].id,
-              title: this.data[i].title,
-              date: this.formatDate.format(this.data[i].created_at) 
-            }
-            // Adiciona o objeto ticket no Array
-            this.tickets.push(this.get_tickets)
-          }
-        })
-      }
-    })    
+     
   }
   
   

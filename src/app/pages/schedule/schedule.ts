@@ -1,3 +1,4 @@
+import { ConnectionUrl } from './../../auth/connectionurl';
 import { AuthService } from './../../auth/auth.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -30,7 +31,7 @@ export class SchedulePage implements OnInit {
   id: number;
   nameUser:any = {name:''}
   formatDate: FormatDate =  new FormatDate()
-
+  link: ConnectionUrl = new ConnectionUrl()
 
 
   constructor(
@@ -49,7 +50,7 @@ export class SchedulePage implements OnInit {
   ) {  }
 
   ngOnInit() {    
-   
+    
   }
 
   // Função Assincrona para esperar o a requisição http da api 
@@ -76,7 +77,7 @@ export class SchedulePage implements OnInit {
            if (this.id == Object.values(this.data[i])[5] || this.id == Object.values(this.data[i])[2]) {           
                // Seta valores no objeto ticket
                this.get_tickets = {
-               photo: "http://localhost:3000/" + this.users.photo.url,
+               photo: this.link.urlconnection + this.users.photo.url,
                name: this.users.name,
                id: this.data[i].id,
                title: this.data[i].title,

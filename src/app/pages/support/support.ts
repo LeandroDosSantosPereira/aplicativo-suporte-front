@@ -5,6 +5,7 @@ import { NgForm, FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ConnectionUrl } from '../../auth/connectionurl';
 
 
 
@@ -21,14 +22,14 @@ export class SupportPage implements OnInit {
   supportMessage: string;
 
   id: any;
-  data: any;
-  
+  data: any;  
   user: any = {name: '', email: '', password_digest: '', photo: '' };
   current: CurrentUser = new CurrentUser()
   imageSrc: string = '';
-  base64Image:any;
- 
+  base64Image:any; 
   ImgUrl: any;
+  link: ConnectionUrl = new ConnectionUrl()
+
   
 
   constructor(
@@ -51,7 +52,7 @@ export class SupportPage implements OnInit {
     // Busca usuário logado na classe authService pelo id e trás os dados para o objeto ticket
     this.authService.getItem(this.id).then(response => {        
       this.data = response; 
-      this.imageSrc = "http://localhost:3000/" + this.data.photo.url  
+      this.imageSrc = this.link.urlconnection + this.data.photo.url  
       this.user ={
         name: this.data.name,
         email: this.data.email,

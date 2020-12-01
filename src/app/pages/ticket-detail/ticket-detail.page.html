@@ -7,6 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- Inicio do Card -->
 <ion-content fullscreen="true">
   <ion-card>
     <ion-item>
@@ -17,8 +18,7 @@
         <h3>{{ticketCards.name}}</h3>
         <p>{{ticketCards.date}}</p>
       </ion-label>
-    </ion-item>
-  
+    </ion-item>  
     <img [src]="ticketCards.image" alt="ion">
     <ion-card-header>
       <p>TICKET ID - {{ticketCards.id}}</p>
@@ -27,7 +27,7 @@
     <ion-card-content>
       {{ticketCards.text}}
     </ion-card-content>
-  
+    <!-- Botões do card -->
     <ion-footer>
       <ion-row>
         <ion-col center text-center>
@@ -43,7 +43,7 @@
           </button>
         </ion-col>
         <ion-col center text-center>
-          <button>
+          <button (click)="hideComment('commntDiv')">
             <ion-icon class="icon" name="chatbubbles"></ion-icon>
             <div>4 Comments</div>
           </button>
@@ -51,12 +51,41 @@
       </ion-row>
     </ion-footer>
   </ion-card>
+<!-- Fim do card -->
 
+<!-- Início dos inputs de comentário e Botões de envio -->
   <ion-item>
-    <ion-input  [(ngModel)]="data.text" name="text" ></ion-input>
+    <ion-input placeholder="Digite seu comentário"  [(ngModel)]="data.text" name="text" ></ion-input>
+    <div class="input--file" >
+      <span>
+        <ion-icon class="icon" name="camera"></ion-icon>
+      </span>
+      <input (change)="handleInputChange($event)" name="imageUrl" type="file" />
+    </div>
+
     <button  (click)="createComment()">
       <ion-icon class="icon" name="send"></ion-icon>
-    </button>
+    </button>    
   </ion-item>
+  <!-- Fim inputs de comentário e Botões de envio -->
+  
+  <!-- Card de Comentários -->
+  <ion-card id="commntDiv">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="ticketCards.image">
+      </ion-avatar>
+      <ion-label>
+        <h3>nome</h3>
+        <p>data</p>
+      </ion-label>
+    </ion-item>  
+    <!-- <img [src]="ticketCards.image" alt="ion"> -->
+    <ion-card-content>
+      <h3 style="color: black;">Texto aqui!!!!!</h3>
+    </ion-card-content>    
+  </ion-card>
+    
+
 
 </ion-content>

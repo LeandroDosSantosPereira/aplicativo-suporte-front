@@ -4,14 +4,19 @@ import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { catchError, map, retry } from 'rxjs/operators';
 import { User } from '../models/User';
+import { ConnectionUrl } from './connectionurl';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  
+  //Recebe a url da classe ConnectionUrl
+  link: ConnectionUrl = new ConnectionUrl()
 
-  private url = 'http://localhost:3000/api/v1/users';
+  // Concatena a url com a rota
+  private url = this.link.urlconnection + 'api/v1/users';
 
   constructor(private http: HttpClient) { }
 

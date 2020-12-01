@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { catchError, map, retry } from 'rxjs/operators';
 import { User } from '../models/User';
+import { ConnectionUrl } from './connectionurl';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,11 @@ import { User } from '../models/User';
 
 export class CommentService {
 
-  private url = 'http://localhost:3000/api/v1/comments';
+   //Recebe a url da classe ConnectionUrl
+   link: ConnectionUrl = new ConnectionUrl()
+
+  //Concatena com a rota
+  private url = this.link.urlconnection + 'api/v1/comments';
 //   tickets: any
 
   constructor(private http: HttpClient) { }

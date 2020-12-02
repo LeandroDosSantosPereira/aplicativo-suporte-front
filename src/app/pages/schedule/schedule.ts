@@ -89,7 +89,7 @@ export class SchedulePage implements OnInit {
          })
        }
      })    
-
+     console.log(this.tickets)
      
   }
   

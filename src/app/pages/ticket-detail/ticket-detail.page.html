@@ -8,7 +8,7 @@
 </ion-header>
 
 <!-- Inicio do Card -->
-<ion-content fullscreen="true">
+<ion-content fullscreen="true"> 
   <ion-card>
     <ion-item>
       <ion-avatar slot="start">
@@ -33,19 +33,19 @@
         <ion-col center text-center>
           <button>
             <ion-icon class="icon" name="thumbs-up"></ion-icon>
-            <div>1.5k Likes</div>
+            <div>Aprovado</div>
           </button>
         </ion-col>
         <ion-col center text-center>
           <button>
             <ion-icon class="icon" name="thumbs-down"></ion-icon>
-            <div>1.5k Unlikes</div>
+            <div>Desaprovado</div>
           </button>
         </ion-col>
         <ion-col center text-center>
           <button (click)="hideComment('commntDiv')">
             <ion-icon class="icon" name="chatbubbles"></ion-icon>
-            <div>4 Comments</div>
+            <div>{{comments.length}} Comentários</div>
           </button>
         </ion-col>       
       </ion-row>
@@ -70,22 +70,22 @@
   <!-- Fim inputs de comentário e Botões de envio -->
   
   <!-- Card de Comentários -->
-  <ion-card id="commntDiv">
-    <ion-item>
+  <ion-card  *ngFor="let comment of comments">
+    <ion-item id="commntDiv">
       <ion-avatar slot="start">
-        <img [src]="ticketCards.image">
+        <img [src]="comment.photo">
       </ion-avatar>
       <ion-label>
-        <h3>nome</h3>
-        <p>data</p>
+        <h3>{{comment.name}}</h3>
+        <p>{{comment.date}}</p>
       </ion-label>
-    </ion-item>  
-    <!-- <img [src]="ticketCards.image" alt="ion"> -->
+    </ion-item> 
+    <div *ngIf="comment.image != null">
+      <img [src]= "link.urlconnection + comment.image" alt="ion">
+   </div>
     <ion-card-content>
-      <h3 style="color: black;">Texto aqui!!!!!</h3>
+      <h3 style="color: black;">{{comment.text}}</h3>
     </ion-card-content>    
   </ion-card>
-    
-
 
 </ion-content>

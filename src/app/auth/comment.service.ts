@@ -15,6 +15,7 @@ export class CommentService {
 
    //Recebe a url da classe ConnectionUrl
    link: ConnectionUrl = new ConnectionUrl()
+   comments:any
 
   //Concatena com a rota
   private url = this.link.urlconnection + 'api/v1/comments';
@@ -53,19 +54,19 @@ export class CommentService {
     })
   }
 
-  // Pega a lista de todos os tickets
-//   getTicketList() {
-//     return new Promise(resolve => {
-//       this.http.get('http://localhost:3000/api/v1/tickets',
-//         { headers: this.headers }).subscribe(data => {
-//           resolve(data);
-//           // return data;
-//         }, err => {
-//           console.log(err);
-//         });
-//     });
+  // Pega a lista de todos os comentários
+  getCommentsList() {
+    return new Promise(resolve => {
+      this.http.get(this.url,
+        { headers: this.headers }).subscribe(data => {
+          resolve(data);
+          // return data;
+        }, err => {
+          console.log(err);
+        });
+    });
 
-//   }
+  }
 
 
   //Método que cria um comentário
@@ -74,6 +75,21 @@ export class CommentService {
       this.httpOptions.headers.set('Authorization', this.token);
     return this.http.post(`${this.url}`, cmt, this.httpOptions);
   }
+
+  // Busca um ticket pelo id
+  getCommentItem(id) {
+    return new Promise(resolve => {
+      this.http.get(this.url + '/' + id,
+        { headers: this.headers }).subscribe(data => {
+          resolve(data);
+          this.comments = data;
+        }, err => {
+          console.log(err);
+        });
+    });
+
+  }
+
 
 
 

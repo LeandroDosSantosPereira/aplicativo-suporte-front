@@ -54,7 +54,7 @@
 <!-- Fim do card -->
 
 <!-- Início dos inputs de comentário e Botões de envio -->
-  <ion-item>
+  <ion-item >
     <ion-input placeholder="Digite seu comentário"  [(ngModel)]="data.text" name="text" ></ion-input>
     <div class="input--file" >
       <span>
@@ -70,21 +70,25 @@
   <!-- Fim inputs de comentário e Botões de envio -->
   
   <!-- Card de Comentários -->
-  <ion-card  *ngFor="let comment of comments">
-    <ion-item id="commntDiv">
-      <ion-avatar slot="start">
-        <img [src]="comment.photo">
-      </ion-avatar>
-      <ion-label>
-        <h3>{{comment.name}}</h3>
-        <p>{{comment.date}}</p>
-      </ion-label>
-    </ion-item> 
-    <div *ngIf="comment.image != null">
-      <img [src]= "link.urlconnection + comment.image" alt="ion">
-   </div>
-    <ion-card-content>
-      <h3 style="color: black;">{{comment.text}}</h3>
-    </ion-card-content>    
-  </ion-card>
+  <div id="commntDiv">
+    <ion-card  *ngFor="let comment of comments">
+      <ion-item >
+        <ion-avatar slot="start">
+          <img [src]="comment.photo">
+        </ion-avatar>
+        <ion-label>
+          <h3>{{comment.name}}</h3>
+          <p>{{comment.date}}</p>
+        </ion-label>
+      </ion-item> 
+      <div *ngIf="comment.image != null">
+        <img [src]= "link.urlconnection + comment.image" alt="ion">
+     </div>
+      <ion-card-content>
+        <h3 style="color: black;">{{comment.text}}</h3>
+      </ion-card-content>    
+    </ion-card>
+
+  </div>
+ 
 </ion-content>

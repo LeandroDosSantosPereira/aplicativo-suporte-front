@@ -42,8 +42,7 @@ export class TicketDetailPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.createCardTickets()
-    this.createCommentList()
+    this.createCardTickets()    
   }
 
   //Cria o Ticket de cards na view
@@ -76,37 +75,37 @@ export class TicketDetailPage implements OnInit {
 
   }
 
-  // Carrega lista de comentários
-  createCommentList() {
-    // Limpa a lista
-    this.comments = new Array<any>()
-    // Pega a lista de comentários da classe CommentService
-    this.commentService.getCommentsList().then(response => {
-      this.commentdata = response;
-      // Laço do tamanho da lista de tickets chama o metodo getItem da classe authService buscando o usuário pelo id 
-      for (let i = 0; i < this.commentdata.length; i++) {
-        this.authService.getItem(this.commentdata[i].user_id).then(response => {
-          this.users = response;
-          //     // Compara se o usuário logado está no ticket como remetente ou destinatário do ticket
-          if (this.ticketId == Object.values(this.commentdata[i])[2]) {
-            // console.log(Object.values(this.commentdata[i])[5])             
-            // Seta valores no objeto ticket
-            this.getComments = {
-              photo: this.link.urlconnection + this.users.photo.url,
-              name: this.users.name,
-              image: this.commentdata[i].image.url,
-              text: this.commentdata[i].text,
-              date: this.formatDate.format(this.commentdata[i].created_at)
-            }
-            // Adiciona o objeto ticket no Array
-            this.comments.push(this.getComments)
-          }
-        })
-      }
-
-    })
-    console.log(this.comments)
+  async ionViewWillEnter(){     
+     // Limpa a lista
+     this.comments = new Array<any>()
+     // Pega a lista de comentários da classe CommentService
+     this.commentService.getCommentsList().then(response => {
+       this.commentdata = response;
+       // Laço do tamanho da lista de tickets chama o metodo getItem da classe authService buscando o usuário pelo id 
+       for (let i = 0; i < this.commentdata.length; i++) {
+         this.authService.getItem(this.commentdata[i].user_id).then(response => {
+           this.users = response;
+           //     // Compara se o usuário logado está no ticket como remetente ou destinatário do ticket
+           if (this.ticketId == Object.values(this.commentdata[i])[2]) {
+             // console.log(Object.values(this.commentdata[i])[5])             
+             // Seta valores no objeto ticket
+             this.getComments = {
+               photo: this.link.urlconnection + this.users.photo.url,
+               name: this.users.name,
+               image: this.commentdata[i].image.url,
+               text: this.commentdata[i].text,
+               date: this.formatDate.format(this.commentdata[i].created_at)
+             }
+             // Adiciona o objeto ticket no Array
+             this.comments.push(this.getComments)
+           }
+         })
+       }
+ 
+     })
+     console.log(this.comments)       
   }
+ 
 
   //Método que pega imagem do input file e convete em base 64 e guarda na variável imageSrc 
   handleInputChange(e) {
@@ -141,13 +140,12 @@ export class TicketDetailPage implements OnInit {
     // Envia o objeto ticket para o método create da classe ticketService
     this.commentService.create(this.comment).subscribe(
       async () => {
-        alert("Comentário salvo!!")
+        this.ionViewWillEnter()       
+        // alert("Comentário salvo!!")
       },
     );
 
-    this.data = { text: '', ticket_id: '' }
-
-    this.ngOnInit()
+    this.data = { text: '', ticket_id: '' } 
     //fINAL
   }
 

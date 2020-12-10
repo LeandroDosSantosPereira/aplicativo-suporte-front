@@ -1,3 +1,4 @@
+import { tick } from '@angular/core/testing';
 import { CurrentUser } from './../../auth/currentuser';
 import { FormatDate } from './../../auth/formatdate';
 import { AuthService } from './../../auth/auth.service';
@@ -53,7 +54,7 @@ export class TicketDetailPage implements OnInit {
     this.id = this.current.getUser()
     // Chama a função da classe ticketService que retorna o ticket pelo id 
     this.ticketService.getItemTicket(this.ticketId).then(response => {
-      this.ticket = response
+      this.ticket = response            
       // Chama a função da classe ticketService que retorna o usuário pelo id 
       this.authService.getItem(this.ticket.user_id).then(response => {
         this.user = response;
@@ -96,7 +97,7 @@ export class TicketDetailPage implements OnInit {
                text: this.commentdata[i].text,
                date: this.formatDate.format(this.commentdata[i].created_at)
              }
-             // Adiciona o objeto ticket no Array
+             // Adiciona o objeto getComments no Array
              this.comments.push(this.getComments)
            }
          })
@@ -113,7 +114,7 @@ export class TicketDetailPage implements OnInit {
     var pattern = /image-*/;
     var reader = new FileReader();
     if (!file.type.match(pattern)) {
-      alert('invalid format');
+      alert('Formato inválido');
       return;
     }
     reader.onload = this._handleReaderLoaded.bind(this);
@@ -126,7 +127,7 @@ export class TicketDetailPage implements OnInit {
   }
 
 
-  //Metodo para cadastrar ticket
+  //Metodo para cadastrar comentário
   createComment() {
     // Cria um objeto Comment
     this.comment = {
@@ -150,18 +151,34 @@ export class TicketDetailPage implements OnInit {
   }
 
   // Esconde comentários
-  hideComment(el) {
+  // hideComment(el) {
 
-    let display = document.getElementById(el).style.display;
+  //   let display = document.getElementById(el).style.display;
 
-    if (display == "none") {
-      document.getElementById(el).style.display = 'block';
-    }
-    else {
-      document.getElementById(el).style.display = 'none';
-      console.log("Fechou")
-    }
+  //   if (display == "none") {
+  //     document.getElementById(el).style.display = 'block';
+  //   }
+  //   else {
+  //     document.getElementById(el).style.display = 'none';
+  //     console.log("Fechou")
+  //   }
 
+  // }
+
+  approve(){
+    // this.ticket.approval = true
+     //Envia o id e o usuário para o método updateItem para a classe authService
+    //  this.ticketService.updateItem(this.ticketId, this.ticket ).subscribe(response => {     
+      console.log(this.ticket)
+    // })   
+  }
+
+  disapprove(){
+  //   this.ticket.approval = false
+  //   //Envia o id e o usuário para o método updateItem para a classe authService
+  //   this.ticketService.updateItem(this.ticketId, this.ticket ).subscribe(response => {     
+  //    console.log(this.ticket)
+  //  })   
   }
 
 }

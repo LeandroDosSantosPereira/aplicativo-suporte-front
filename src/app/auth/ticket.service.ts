@@ -89,6 +89,18 @@ export class TicketService {
 
   }
 
+  // Método de atualizar Ticket
+  updateItem(id, item): Observable<any> {
+    this.httpOptions.headers =
+      this.httpOptions.headers.set('Authorization', this.token);
+    return this.http
+      .put<any>(this.url + '/' + id, JSON.stringify(item), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
 
 
 }

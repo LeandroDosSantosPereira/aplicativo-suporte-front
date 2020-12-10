@@ -31,19 +31,20 @@
     <ion-footer>
       <ion-row>
         <ion-col center text-center>
-          <button>
+          <button (click)="approve()">
             <ion-icon class="icon" name="thumbs-up"></ion-icon>
             <div>Aprovado</div>
           </button>
         </ion-col>
         <ion-col center text-center>
-          <button>
+          <button (click)= "disapprove()">
             <ion-icon class="icon" name="thumbs-down"></ion-icon>
             <div>Desaprovado</div>
           </button>
         </ion-col>
         <ion-col center text-center>
-          <button (click)="hideComment('commntDiv')">
+          <!-- <button (click)="hideComment('commntDiv')"> -->
+          <button>
             <ion-icon class="icon" name="chatbubbles"></ion-icon>
             <div>{{comments.length}} Comentários</div>
           </button>
@@ -88,7 +89,5 @@
         <h3 style="color: black;">{{comment.text}}</h3>
       </ion-card-content>    
     </ion-card>
-
   </div>
- 
 </ion-content>

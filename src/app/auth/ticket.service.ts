@@ -56,7 +56,7 @@ export class TicketService {
   // Pega a lista de todos os tickets
   getTicketList() {
     return new Promise(resolve => {
-      this.http.get('http://localhost:3000/api/v1/tickets',
+      this.http.get(this.url,
         { headers: this.headers }).subscribe(data => {
           resolve(data);
           // return data;

@@ -35,7 +35,7 @@ export class LoginPage {
     this.submitted = true;
 
     const loading = await this.loadingCtrl.create({ message: 'Carregando ...' });
-    await loading.present();   
+    await loading.present();    
     // Envia o usuário para o método login da classe authService 
     this.authService.login({user: this.login}).subscribe(   
       //  Recebe o Token e guarda no localStorage 

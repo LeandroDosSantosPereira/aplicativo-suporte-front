@@ -55,6 +55,11 @@ export class SchedulePage implements OnInit {
 
   // Função Assincrona para esperar o a requisição http da api 
   async ionViewWillEnter(){
+
+    // Inicia o alert de  loading
+    const loading = await this.loadingCtrl.create({ message: 'Carregando ...' });
+    await loading.present(); 
+
     // Instância novamente  para limpar o array 
     this.tickets = new Array<any>()
      // Pega o usuário logado
@@ -88,7 +93,10 @@ export class SchedulePage implements OnInit {
            }
          })
        }
-     })    
+     })  
+    
+     //  Encerra o carregamento do loading
+     loading.dismiss();  
      console.log(this.tickets)
      
   }

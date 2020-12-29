@@ -166,19 +166,21 @@ export class TicketDetailPage implements OnInit {
   // }
 
   approve(){
-    // this.ticket.approval = true
-     //Envia o id e o usuário para o método updateItem para a classe authService
-    //  this.ticketService.updateItem(this.ticketId, this.ticket ).subscribe(response => {     
+    this.ticket.approval = true
+    //  Envia o id e o usuário para o método updateItem para a classe authService
+     this.ticketService.updateItem(this.ticketId, this.ticket ).subscribe(response => {     
       console.log(this.ticket)
-    // })   
+      alert("Curtiu")
+    })   
   }
 
   disapprove(){
-  //   this.ticket.approval = false
-  //   //Envia o id e o usuário para o método updateItem para a classe authService
-  //   this.ticketService.updateItem(this.ticketId, this.ticket ).subscribe(response => {     
-  //    console.log(this.ticket)
-  //  })   
+    this.ticket.approval = false
+    //Envia o id e o usuário para o método updateItem para a classe authService
+    this.ticketService.updateItem(this.ticketId, this.ticket ).subscribe(response => {     
+     console.log(this.ticket)
+     alert("Não curtiu")
+   })   
   }
 
 }

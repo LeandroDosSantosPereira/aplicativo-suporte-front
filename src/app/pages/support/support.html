@@ -19,6 +19,10 @@
   <ion-item>    
     <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
   </ion-item>
+  <!-- <ion-item> 
+    Tag que acessa câmera   
+    <input name="imageUrl" type="file" accept="image/*"  capture="camera" (change)="handleInputChange($event)" />
+  </ion-item> -->
   <ion-item>        
     <ion-label>Nome</ion-label>
     <ion-input [(ngModel)]="user.name" placeholder="Enter Name"></ion-input>

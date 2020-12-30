@@ -28,6 +28,14 @@
     <ion-label position="floating">Description</ion-label>
     <ion-textarea [(ngModel)]="data.text" name="text"></ion-textarea>
   </ion-item>
+  
+  <div id="commntDiv">
+  <ion-item>
+    <ion-label position="stacked" color="primary">Arte para aprovação?</ion-label>
+    <ion-checkbox color="primary"  name="admin" ></ion-checkbox>
+  </ion-item>      
+ </div>
+
     <ion-button ion-button type="submit" expand="block">Cadastrar ticket</ion-button>
   </form>
 </ion-content>

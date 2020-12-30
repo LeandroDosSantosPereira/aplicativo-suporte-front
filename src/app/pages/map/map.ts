@@ -12,14 +12,14 @@ import { TicketService } from '../../auth/ticket.service';
 })
 export class MapPage {
 
-  data = { user_id: '', title: '', ads_id: '', text:'' }
+  data = { user_id: '', title: '', ads_id: '', text: '' }
   ticket: any
   current: CurrentUser = new CurrentUser()
   id: number
-  imageSrc:string = ''
-  img:string = '' 
-  cleanFile:string = ""
-  public  usersList: any 
+  imageSrc: string = ''
+  img: string = ''
+  cleanFile: string = ""
+  public usersList: any
 
   constructor(
     public ticketService: TicketService,
@@ -29,13 +29,28 @@ export class MapPage {
 
 
   ngOnInit() {
+    this.loadPage()
+
+  }
+
+  loadPage() {
     // Pega o id do usuário logado
     this.id = this.current.getUser()
     // Chama o método getAll da classe auService e salva na userList a lista de usuários
     this.authService.getAll().then(d => {
-    this.usersList = d
-    console.log(this.usersList)
+      this.usersList = d
+
+      // Bloco que faz a verificação se é admin para exibir ou não o campo
+      //  correspondente na view     
+      for (let i = 0; i < this.usersList.length; i++) {
+        if (this.id == this.usersList[i].id) {         
+          if (this.usersList[i].admin == false) {            
+            document.getElementById("commntDiv").style.display = 'none';
+          }
+        }
+      }
     });
+
   }
 
   //Método que pega imagem do input file e convete em base 64 e guarda na variável imageSrc 
@@ -53,12 +68,12 @@ export class MapPage {
   _handleReaderLoaded(e) {
     let reader = e.target;
     this.imageSrc = reader.result;
-    this.img =  this.imageSrc  ;        
+    this.img = this.imageSrc;
   }
 
 
 
-  logForm() {    
+  logForm() {
     // Cria um objeto ticket
     this.ticket = {
       ticket: {
@@ -66,21 +81,23 @@ export class MapPage {
         title: this.data.title,
         ads_id: this.data.ads_id,
         text: this.data.text,
-        image: this.img       
+        image: this.img
       }
     };
     // Envia o objeto ticket para o método create da classe ticketService
     this.ticketService.create(this.ticket).subscribe(
       async () => {
-        this.data =  { user_id: '', title: '', ads_id: '', text:'' }
+        this.data = { user_id: '', title: '', ads_id: '', text: '' }
         this.cleanFile = ''
         this.router.navigateByUrl('/app/tabs/schedule');
-        
+
       },
     );
-   
-    //fINAL
+
+
   }
+
+
 }
 
 

@@ -106,6 +106,10 @@ export class SchedulePage implements OnInit {
   getTicketId(id){
     this.router.navigate(['/ticket-detail',id])
   }
-
+  
+ //Redireciona para página de cadastro de ticket
+  goTicketCreatePage(){
+    this.router.navigate(['/app/tabs/map'])
+  }
 
 }

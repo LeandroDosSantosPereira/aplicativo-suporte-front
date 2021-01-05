@@ -90,6 +90,7 @@ export class AuthService {
           // console.log(data)
         }, err => {
           console.log(err);
+          document.location.reload(true);
         });
     });
 

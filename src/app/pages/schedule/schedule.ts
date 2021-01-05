@@ -97,7 +97,6 @@ export class SchedulePage implements OnInit {
     
      //  Encerra o carregamento do loading
      loading.dismiss();  
-     console.log(this.tickets)
      
   }
   

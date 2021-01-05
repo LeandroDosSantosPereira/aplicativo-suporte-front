@@ -3,5 +3,5 @@ export class ConnectionUrl{
   public urlconnection: string  = "https://api-suporte.herokuapp.com/"   
   
   // Comando de push no Heroku
-  // git push heroku HEAD:master    
+  // git push heroku HEAD:master  
 }

@@ -1342,14 +1342,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }, function (err) {
               // Caso aconteça algum problema
               console.log(err); // Verifica se está online
-
-              if (navigator.onLine) {
-                // Da um reload na página para forçar a pegar o token caso estaja conectado a internet
-                document.location.reload(true);
-              } else {
-                // Se não estiver conectado exibe essa mensagem de erro
-                alert("Você deve estar conectado á internet");
-              }
+              // if (navigator.onLine) {
+              //   // Da um reload na página para forçar a pegar o token caso estaja conectado a internet
+              //   document.location.reload(true)
+              // }
+              // else {
+              //   // Se não estiver conectado exibe essa mensagem de erro
+              //   alert("Você deve estar conectado á internet")
+              // }
 
               ;
             });

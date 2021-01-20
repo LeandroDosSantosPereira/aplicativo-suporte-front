@@ -97,7 +97,7 @@ export class SchedulePage implements OnInit {
     
      //  Encerra o carregamento do loading
      loading.dismiss();  
-     
+     this.setValueinLocalStorage()
   }
   
   
@@ -109,6 +109,13 @@ export class SchedulePage implements OnInit {
  //Redireciona para página de cadastro de ticket
   goTicketCreatePage(){
     this.router.navigate(['/app/tabs/map'])
+  }
+
+  setValueinLocalStorage(){
+    if(localStorage.getItem('refresh') == "true"){
+      localStorage.setItem('refresh',"false")
+      document.location.reload(true)
+    }
   }
 
 }

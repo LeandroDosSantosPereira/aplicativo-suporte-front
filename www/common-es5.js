@@ -683,15 +683,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         key: "getUser",
         //  Método para pegar o usuário logado
         value: function getUser() {
+          // Inicia o alert de  loading
+          this.open();
+
           try {
             var jwt = localStorage.getItem('token');
             var obj = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_1__["default"])(jwt); //Função que pega o usuário logado
 
             this.id = JSON.stringify(obj.user_id);
             return this.id;
+            this.close();
           } catch (ex) {
             return null;
           }
+        }
+      }, {
+        key: "open",
+        value: function open() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee3() {
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    _context3.next = 2;
+                    return this.loadingCtrl.create({
+                      message: 'Carregando ...'
+                    });
+
+                  case 2:
+                    this.loading = _context3.sent;
+                    _context3.next = 5;
+                    return this.loading.present();
+
+                  case 5:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3, this);
+          }));
+        }
+      }, {
+        key: "close",
+        value: function close() {
+          this.loading.dismiss();
         }
       }]);
 
@@ -790,37 +827,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     /* harmony import */
 
 
-    var rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @ionic/angular */
+    "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+    /* harmony import */
+
+
+    var rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! rxjs/internal/observable/throwError */
     "./node_modules/rxjs/internal/observable/throwError.js");
     /* harmony import */
 
 
-    var rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_3___default =
+    var rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_4___default =
     /*#__PURE__*/
-    __webpack_require__.n(rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_3__);
+    __webpack_require__.n(rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_4__);
     /* harmony import */
 
 
-    var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! rxjs/operators */
     "./node_modules/rxjs/_esm2015/operators/index.js");
     /* harmony import */
 
 
-    var _connectionurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _connectionurl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ./connectionurl */
     "./src/app/auth/connectionurl.ts");
 
     var TicketService =
     /*#__PURE__*/
     function () {
-      function TicketService(http) {
+      function TicketService(http, alertCtrl, loadingCtrl, modalCtrl) {
         _classCallCheck(this, TicketService);
 
-        this.http = http; //Recebe a url da classe ConnectionUrl
+        this.http = http;
+        this.alertCtrl = alertCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.modalCtrl = modalCtrl; //Recebe a url da classe ConnectionUrl
 
-        this.link = new _connectionurl__WEBPACK_IMPORTED_MODULE_5__["ConnectionUrl"](); // Concatena com a rota
+        this.link = new _connectionurl__WEBPACK_IMPORTED_MODULE_6__["ConnectionUrl"](); // Concatena com a rota
 
         this.url = this.link.urlconnection + 'api/v1/tickets'; // Do this on service. But for this demo lets do here
 
@@ -850,23 +896,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           } // return an observable with a user-facing error message
 
 
-          return Object(rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_3__["throwError"])('Something bad happened; please try again later.');
+          return Object(rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_4__["throwError"])('Something bad happened; please try again later.');
         }
       }, {
         key: "getTicketList",
         // Pega a lista de todos os tickets
         value: function getTicketList() {
-          var _this = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee4() {
+            var _this = this;
 
-          return new Promise(function (resolve) {
-            _this.http.get(_this.url, {
-              headers: _this.headers
-            }).subscribe(function (data) {
-              resolve(data); // return data;
-            }, function (err) {
-              console.log(err);
-            });
-          });
+            var loading;
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              while (1) {
+                switch (_context4.prev = _context4.next) {
+                  case 0:
+                    _context4.next = 2;
+                    return this.loadingCtrl.create({
+                      message: 'Carregando ...'
+                    });
+
+                  case 2:
+                    loading = _context4.sent;
+                    _context4.next = 5;
+                    return loading.present();
+
+                  case 5:
+                    return _context4.abrupt("return", new Promise(function (resolve) {
+                      _this.http.get(_this.url, {
+                        headers: _this.headers
+                      }).subscribe(function (data) {
+                        resolve(data); //  Encerra o carregamento do loading
+
+                        loading.dismiss(); // return data;
+                      }, function (err) {
+                        console.log(err);
+                      });
+                    }));
+
+                  case 6:
+                  case "end":
+                    return _context4.stop();
+                }
+              }
+            }, _callee4, this);
+          }));
         } //Método que cria um ticket
 
       }, {
@@ -879,25 +954,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         key: "getItemTicket",
         value: function getItemTicket(id) {
-          var _this2 = this;
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0,
+          /*#__PURE__*/
+          regeneratorRuntime.mark(function _callee5() {
+            var _this2 = this;
 
-          return new Promise(function (resolve) {
-            _this2.http.get(_this2.url + '/' + id, {
-              headers: _this2.headers
-            }).subscribe(function (data) {
-              resolve(data);
-              _this2.tickets = data;
-            }, function (err) {
-              console.log(err);
-            });
-          });
+            var loading;
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              while (1) {
+                switch (_context5.prev = _context5.next) {
+                  case 0:
+                    _context5.next = 2;
+                    return this.loadingCtrl.create({
+                      message: 'Carregando ...'
+                    });
+
+                  case 2:
+                    loading = _context5.sent;
+                    _context5.next = 5;
+                    return loading.present();
+
+                  case 5:
+                    return _context5.abrupt("return", new Promise(function (resolve) {
+                      _this2.http.get(_this2.url + '/' + id, {
+                        headers: _this2.headers
+                      }).subscribe(function (data) {
+                        resolve(data);
+                        _this2.tickets = data; //  Encerra o carregamento do loading
+
+                        loading.dismiss();
+                      }, function (err) {
+                        console.log(err);
+                      });
+                    }));
+
+                  case 6:
+                  case "end":
+                    return _context5.stop();
+                }
+              }
+            }, _callee5, this);
+          }));
         } // Método de atualizar Ticket
 
       }, {
         key: "updateItem",
         value: function updateItem(id, item) {
           this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.token);
-          return this.http.put(this.url + '/' + id, JSON.stringify(item), this.httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["retry"])(2), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+          return this.http.put(this.url + '/' + id, JSON.stringify(item), this.httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retry"])(2), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError));
         }
       }]);
 
@@ -907,12 +1011,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     TicketService.ctorParameters = function () {
       return [{
         type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
+      }, {
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"]
+      }, {
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"]
+      }, {
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]
       }];
     };
 
     TicketService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
       providedIn: 'root'
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])], TicketService);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])], TicketService);
     /***/
   }
 }]);

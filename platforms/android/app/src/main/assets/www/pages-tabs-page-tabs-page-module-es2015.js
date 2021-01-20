@@ -801,6 +801,7 @@ let SchedulePage = class SchedulePage {
             });
             //  Encerra o carregamento do loading
             loading.dismiss();
+            this.setValueinLocalStorage();
         });
     }
     // Função que recebe o id do objeto selecionado e manda para a página ticket-detail através da rota
@@ -810,6 +811,12 @@ let SchedulePage = class SchedulePage {
     //Redireciona para página de cadastro de ticket
     goTicketCreatePage() {
         this.router.navigate(['/app/tabs/map']);
+    }
+    setValueinLocalStorage() {
+        if (localStorage.getItem('refresh') == "true") {
+            localStorage.setItem('refresh', "false");
+            document.location.reload(true);
+        }
     }
 };
 SchedulePage.ctorParameters = () => [

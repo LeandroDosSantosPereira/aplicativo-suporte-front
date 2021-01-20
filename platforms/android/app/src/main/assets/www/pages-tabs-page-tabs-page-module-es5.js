@@ -1349,8 +1349,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     }); //  Encerra o carregamento do loading
 
                     loading.dismiss();
+                    this.setValueinLocalStorage();
 
-                  case 10:
+                  case 11:
                   case "end":
                     return _context3.stop();
                 }
@@ -1369,6 +1370,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "goTicketCreatePage",
         value: function goTicketCreatePage() {
           this.router.navigate(['/app/tabs/map']);
+        }
+      }, {
+        key: "setValueinLocalStorage",
+        value: function setValueinLocalStorage() {
+          if (localStorage.getItem('refresh') == "true") {
+            localStorage.setItem('refresh', "false");
+            document.location.reload(true);
+          }
         }
       }]);
 

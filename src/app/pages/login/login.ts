@@ -19,13 +19,13 @@ import { UserOptions } from '../../interfaces/user-options';
 export class LoginPage {
   login: any = { email: '', password: '' };  
   submitted = false;
-
+  verifyLocalStorage:any = ""
   constructor(
     private authService: AuthService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     public userData: UserData,
-    public router: Router
+    public router: Router,   
   ) { }
 
   async onLogin(form: NgForm) {     
@@ -43,7 +43,7 @@ export class LoginPage {
         console.log(token)
         localStorage.setItem('token',token);
         loading.dismiss();
-        this.router.navigateByUrl('/app/tabs/schedule');
+        this.setValueinLocalStorage()
       },
       async () => {
         const alert = await this.alertCtrl.create({ message: 'Senha ou e-mail incorretos, tente novamente', buttons: ['OK'] });
@@ -52,6 +52,13 @@ export class LoginPage {
       }
     );
 
+  }
+
+  setValueinLocalStorage(){
+    if(localStorage.getItem('refresh') != "true"){
+      localStorage.setItem('refresh',"true")
+      this.router.navigateByUrl('/app/tabs/schedule');
+    }
   }
 
 }

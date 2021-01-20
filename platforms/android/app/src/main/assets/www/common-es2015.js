@@ -390,15 +390,27 @@ __webpack_require__.r(__webpack_exports__);
 class CurrentUser {
     //  Método para pegar o usuário logado
     getUser() {
+        // Inicia o alert de  loading
+        this.open();
         try {
             const jwt = localStorage.getItem('token');
             let obj = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_1__["default"])(jwt); //Função que pega o usuário logado
             this.id = JSON.stringify(obj.user_id);
             return this.id;
+            this.close();
         }
         catch (ex) {
             return null;
         }
+    }
+    open() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.loading = yield this.loadingCtrl.create({ message: 'Carregando ...' });
+            yield this.loading.present();
+        });
+    }
+    close() {
+        this.loading.dismiss();
     }
 }
 
@@ -445,10 +457,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/internal/observable/throwError */ "./node_modules/rxjs/internal/observable/throwError.js");
-/* harmony import */ var rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _connectionurl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./connectionurl */ "./src/app/auth/connectionurl.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+/* harmony import */ var rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/internal/observable/throwError */ "./node_modules/rxjs/internal/observable/throwError.js");
+/* harmony import */ var rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _connectionurl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./connectionurl */ "./src/app/auth/connectionurl.ts");
+
 
 
 
@@ -456,10 +470,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let TicketService = class TicketService {
-    constructor(http) {
+    constructor(http, alertCtrl, loadingCtrl, modalCtrl) {
         this.http = http;
+        this.alertCtrl = alertCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.modalCtrl = modalCtrl;
         //Recebe a url da classe ConnectionUrl
-        this.link = new _connectionurl__WEBPACK_IMPORTED_MODULE_5__["ConnectionUrl"]();
+        this.link = new _connectionurl__WEBPACK_IMPORTED_MODULE_6__["ConnectionUrl"]();
         // Concatena com a rota
         this.url = this.link.urlconnection + 'api/v1/tickets';
         // Do this on service. But for this demo lets do here
@@ -487,17 +504,24 @@ let TicketService = class TicketService {
                 `body was: ${error.error}`);
         }
         // return an observable with a user-facing error message
-        return Object(rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_3__["throwError"])('Something bad happened; please try again later.');
+        return Object(rxjs_internal_observable_throwError__WEBPACK_IMPORTED_MODULE_4__["throwError"])('Something bad happened; please try again later.');
     }
     ;
     // Pega a lista de todos os tickets
     getTicketList() {
-        return new Promise(resolve => {
-            this.http.get(this.url, { headers: this.headers }).subscribe(data => {
-                resolve(data);
-                // return data;
-            }, err => {
-                console.log(err);
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            // Inicia o alert de  loading
+            const loading = yield this.loadingCtrl.create({ message: 'Carregando ...' });
+            yield loading.present();
+            return new Promise(resolve => {
+                this.http.get(this.url, { headers: this.headers }).subscribe(data => {
+                    resolve(data);
+                    //  Encerra o carregamento do loading
+                    loading.dismiss();
+                    // return data;
+                }, err => {
+                    console.log(err);
+                });
             });
         });
     }
@@ -509,12 +533,19 @@ let TicketService = class TicketService {
     }
     // Busca um ticket pelo id
     getItemTicket(id) {
-        return new Promise(resolve => {
-            this.http.get(this.url + '/' + id, { headers: this.headers }).subscribe(data => {
-                resolve(data);
-                this.tickets = data;
-            }, err => {
-                console.log(err);
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            // Inicia o alert de  loading
+            const loading = yield this.loadingCtrl.create({ message: 'Carregando ...' });
+            yield loading.present();
+            return new Promise(resolve => {
+                this.http.get(this.url + '/' + id, { headers: this.headers }).subscribe(data => {
+                    resolve(data);
+                    this.tickets = data;
+                    //  Encerra o carregamento do loading
+                    loading.dismiss();
+                }, err => {
+                    console.log(err);
+                });
             });
         });
     }
@@ -524,17 +555,23 @@ let TicketService = class TicketService {
             this.httpOptions.headers.set('Authorization', this.token);
         return this.http
             .put(this.url + '/' + id, JSON.stringify(item), this.httpOptions)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["retry"])(2), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retry"])(2), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError));
     }
 };
 TicketService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"] }
 ];
 TicketService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
         providedIn: 'root'
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
 ], TicketService);
 
 

@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { catchError, map, retry } from 'rxjs/operators';
@@ -13,14 +14,19 @@ import { ConnectionUrl } from './connectionurl';
 
 export class TicketService {
 
-   //Recebe a url da classe ConnectionUrl
-   link: ConnectionUrl = new ConnectionUrl()
+  //Recebe a url da classe ConnectionUrl
+  link: ConnectionUrl = new ConnectionUrl()
 
   // Concatena com a rota
   private url = this.link.urlconnection + 'api/v1/tickets';
   tickets: any
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
+    public modalCtrl: ModalController,
+  ) { }
 
   // Do this on service. But for this demo lets do here
   token: any = localStorage.getItem('token');
@@ -54,11 +60,16 @@ export class TicketService {
   }
 
   // Pega a lista de todos os tickets
-  getTicketList() {
+  async getTicketList() {
+    // Inicia o alert de  loading
+    const loading = await this.loadingCtrl.create({ message: 'Carregando ...' });
+    await loading.present();
     return new Promise(resolve => {
       this.http.get(this.url,
         { headers: this.headers }).subscribe(data => {
           resolve(data);
+          //  Encerra o carregamento do loading
+          loading.dismiss();
           // return data;
         }, err => {
           console.log(err);
@@ -76,12 +87,17 @@ export class TicketService {
   }
 
   // Busca um ticket pelo id
-  getItemTicket(id) {
+  async getItemTicket(id) {
+    // Inicia o alert de  loading
+    const loading = await this.loadingCtrl.create({ message: 'Carregando ...' });
+    await loading.present();
     return new Promise(resolve => {
       this.http.get(this.url + '/' + id,
         { headers: this.headers }).subscribe(data => {
           resolve(data);
           this.tickets = data;
+          //  Encerra o carregamento do loading
+          loading.dismiss();
         }, err => {
           console.log(err);
         });

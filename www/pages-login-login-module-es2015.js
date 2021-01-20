@@ -138,6 +138,7 @@ let LoginPage = class LoginPage {
         this.router = router;
         this.login = { email: '', password: '' };
         this.submitted = false;
+        this.verifyLocalStorage = "";
     }
     onLogin(form) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -153,13 +154,19 @@ let LoginPage = class LoginPage {
                 console.log(token);
                 localStorage.setItem('token', token);
                 loading.dismiss();
-                this.router.navigateByUrl('/app/tabs/schedule');
+                this.setValueinLocalStorage();
             }), () => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
                 const alert = yield this.alertCtrl.create({ message: 'Senha ou e-mail incorretos, tente novamente', buttons: ['OK'] });
                 yield alert.present();
                 loading.dismiss();
             }));
         });
+    }
+    setValueinLocalStorage() {
+        if (localStorage.getItem('refresh') != "true") {
+            localStorage.setItem('refresh', "true");
+            this.router.navigateByUrl('/app/tabs/schedule');
+        }
     }
 };
 LoginPage.ctorParameters = () => [

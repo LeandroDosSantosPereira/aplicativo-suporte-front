@@ -250,6 +250,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           password: ''
         };
         this.submitted = false;
+        this.verifyLocalStorage = "";
       }
 
       _createClass(LoginPage, [{
@@ -299,7 +300,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                 console.log(token);
                                 localStorage.setItem('token', token);
                                 loading.dismiss();
-                                this.router.navigateByUrl('/app/tabs/schedule');
+                                this.setValueinLocalStorage();
 
                               case 4:
                               case "end":
@@ -347,6 +348,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               }
             }, _callee3, this);
           }));
+        }
+      }, {
+        key: "setValueinLocalStorage",
+        value: function setValueinLocalStorage() {
+          if (localStorage.getItem('refresh') != "true") {
+            localStorage.setItem('refresh', "true");
+            this.router.navigateByUrl('/app/tabs/schedule');
+          }
         }
       }]);
 
